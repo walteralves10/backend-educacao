@@ -1,5 +1,6 @@
-const database = require('../infra/database');
+const db = require('../infra/database');
 
 exports.getUsers = function(){
-    return database.query('select * from educacao.users');
+    db
+    return db.query('select * from cadastro_professor');
 };

@@ -3,13 +3,12 @@ const router = express.Router();
 const usersService = require('../service/usersService');
 
 router.get('/users', async function(req, res){
-    res.json([{
-        id: 1,
-        name: 'Walter prof'
-    }]);
-    //const users = await usersService.getUsers();
-    //res.json(users);
+    const users = await usersService.getUsers();
+    users.on("result", (row, index)=>{
+        res.json(row);
+    });
 });
+
 router.get('/users/:id', async function(req, res){
 
 });

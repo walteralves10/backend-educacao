@@ -1,10 +1,18 @@
-const pgp = require('pg-promise')();
-const db = pgp({
-    user:'',
-    password:'',
-    host:'',
-    port:5432,
-    database:'educacao'
+const mysql      = require('mysql');
+const db = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : 'Aguabeba10',
+  database: 'educasoft'
 });
 
-module.exports.db;
+// db.connect();
+
+// db.query('select * from cadastro_professor', function(err, res, fields){
+//   if (err) throw err;
+//   console.log(res);
+// });
+
+// db.end();
+
+module.exports = db;

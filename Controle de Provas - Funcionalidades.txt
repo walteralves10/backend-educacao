@@ -1,0 +1,19 @@
+React 
+HTML - CSS - Bootstrap
+
+- Cadastro de usuário e autenticação de login;
+	- Deve conter Nome, sobrenome, e-mail e senha;
+	- Informação de formação (faculdade, ano formação, especialidade);
+- Cadastro de disciplina (Exemplo: Matemática);
+- Cadastro de area de estudo da matéria (Exemplo: Equações de segundo grau);
+- Cadastro de Perguntas
+	- Descrição da pergunta;
+	- Checkbox do tipo (Objetiva ou Subjetiva);
+		- Se for Objetiva, apresentar as opções de descrição da opção;
+		- Se for Subjetiva, perguntar o número de linhas necessárias para resposta;
+	- Dificuldade da pergunta;
+	- Resposta da pergunta (Se for subjetiva, informar resposta se torna opcional);
+	- Teremos que colocar na pergunta, o id do usuario que inseriu;
+	
+- Funcionalidade de gerar provas, selecionando as perguntas cadastradas
+- Funcionalidade de gerar PDF da prova gerada. 
