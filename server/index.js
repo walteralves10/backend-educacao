@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 
-app.use('/', require('./route/usersRoute'));
+app.use(express.json());
+app.use('/', require('./route/professoresRoute'));
 
 app.listen(3000);
