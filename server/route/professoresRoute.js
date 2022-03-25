@@ -8,22 +8,25 @@ router.get('/professores', async function(req, res){
 });
 
 router.get('/professores/:id', async function(req, res){
-
+    const id = req.params.id;
+    const professores = await professoresService.getUnicoProfessor(id);
+    res.json(professores);
 });
 
 router.post('/professores', async function(req, res){
     const professor = req.body;
     const novoProfessor = await professoresService.postProfessores(professor);
-    console.log(novoProfessor);
     res.json(novoProfessor);
 });
 
 router.put('/professores/:id', async function(req, res){
-
+    const professor = req.body;
+    await professoresService.putProfessores(req.params.id, professor);
+    res.end();
 });
 
 router.delete('/professores/:id', async function(req, res){
-
+    
 });
 
 module.exports = router;
