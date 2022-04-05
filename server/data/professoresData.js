@@ -10,6 +10,10 @@ exports.getUnicoProfessor = async (controle_professor) => {
     return rows;
 };
 
+exports.getAutenticacaoLogin = async (login) => {
+    const [rows, fields] = await db.promise().query('SELECT * FROM cadastro_professor WHERE email_professor = ? and senha_professor = ?', [login.email_professor, login.senha_professor]);
+}
+
 exports.postProfessores = async (professor) => {
     const [rows, fields] = await db.promise().query('INSERT INTO cadastro_professor SET ?', [professor]);
     return rows;

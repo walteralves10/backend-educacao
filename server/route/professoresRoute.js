@@ -9,8 +9,15 @@ router.get('/professores', async function(req, res){
 
 router.get('/professores/:id', async function(req, res){
     const id = req.params.id;
-    const professores = await professoresService.getUnicoProfessor(id);
-    res.json(professores);
+    const professor = await professoresService.getUnicoProfessor(id);
+    res.json(professor);
+});
+
+router.get('/login', async function(req, res){
+    const login = req.body;
+    const professor = await professoresService.getAutenticacaoLogin(login);
+    console.log(professor);
+    res.json(professor);
 });
 
 router.post('/professores', async function(req, res){
@@ -26,7 +33,8 @@ router.put('/professores/:id', async function(req, res){
 });
 
 router.delete('/professores/:id', async function(req, res){
-    
+    await professoresService.deleteProfessores(req.params.id);
+    res.end();
 });
 
 module.exports = router;

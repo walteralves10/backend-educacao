@@ -8,6 +8,10 @@ exports.getUnicoProfessor = (controle_professor) => {
     return professoresData.getUnicoProfessor(controle_professor);
 };
 
+exports.getAutenticacaoLogin = (login) => {
+    return professoresData.getAutenticacaoLogin(login);
+}
+
 exports.postProfessores = (professor) => {
     return professoresData.postProfessores(professor);
 };

@@ -65,13 +65,50 @@ test('deve OBTER get professores', async ()=>{
 
 test('deve OBTER UNICO get professores', async ()=>{
 
-    const id = {
-        controle_professor: 97
+    const dado = {
+        nome_professor: generate(5),
+        sobrenome_professor: generate(12),
+        dt_nascimento_professor: formataData(new Date()), //.toLocaleDateString().replaceAll('/','-'),
+        dt_formacao_professor: formataData(new Date()), //.toLocaleDateString(),
+        instituicao_formacao_professor: generate(12),
+        tipo_perfil_professor: 1,
+        status_professor: 1,
+        email_professor: generate(12),
+        senha_professor: '123' 
     };
+    const professor = await professoresService.postProfessores(dado);
 
-    const resposta = await request(`http://localhost:3000/professores/${id.controle_professor}`, 'get');
+    const resposta = await request(`http://localhost:3000/professores/${professor.insertId}`, 'get');
     const resJson = JSON.stringify(resposta.data); 
-    expect(resJson.nome_professor).toString('Joao das neves');
+    expect(resJson.nome_professor).toString(dado.nome_professor);
+
+    professoresService.deleteProfessores(professor.insertId);
+});
+test.only('deve LOGAR E RETORNAR OS DADOS get professores', async ()=>{
+
+    const dado = {
+        nome_professor: generate(5),
+        sobrenome_professor: generate(12),
+        dt_nascimento_professor: formataData(new Date()), //.toLocaleDateString().replaceAll('/','-'),
+        dt_formacao_professor: formataData(new Date()), //.toLocaleDateString(),
+        instituicao_formacao_professor: generate(12),
+        tipo_perfil_professor: 1,
+        status_professor: 1,
+        email_professor: generate(12),
+        senha_professor: '123' 
+    };
+    const professor = await professoresService.postProfessores(dado);
+
+    login = {
+        email_professor: dado.email_professor,
+        senha_professor: dado.senha_professor
+    }
+
+    const resposta = await request(`http://localhost:3000/login`, 'get', login);
+    const resJson = JSON.stringify(resposta.data); 
+    expect(resJson.nome_professor).toString(dado.nome_professor);
+
+    professoresService.deleteProfessores(professor.insertId);
 });
 
 test('deve GRAVAR post professores', async ()=>{
@@ -99,7 +136,7 @@ test('deve GRAVAR post professores', async ()=>{
     await professoresService.deleteProfessores(professor.insertId);
 });
 
-test.only('deve ATUALIZAR put professores', async ()=>{
+test('deve ATUALIZAR put professores', async ()=>{
     
     const dado = {
         nome_professor: generate(5),
@@ -117,11 +154,29 @@ test.only('deve ATUALIZAR put professores', async ()=>{
     dado.nome_professor = "dale";
     dado.sobrenome_professor = "doly";
 
-    await request(`http://localhost:3000/professores/${professor.insertId}`, 'put', dado);
+    const resposta = await request(`http://localhost:3000/professores/${professor.insertId}`, 'put', dado);
 
-    const id = parseInt(professor.insertId);
-    delete professor.insertId
-    expect(dado).toEqual(professor);
+    expect(resposta.status).toEqual(200);
 
-    // await professoresService.deleteProfessores(professor.insertId);
+    await professoresService.deleteProfessores(professor.insertId);
+});
+
+test('deve DELETAR delete professores', async ()=>{
+    
+    const dado = {
+        nome_professor: generate(5),
+        sobrenome_professor: generate(12),
+        dt_nascimento_professor: formataData(new Date()), //.toLocaleDateString().replaceAll('/','-'),
+        dt_formacao_professor: formataData(new Date()), //.toLocaleDateString(),
+        instituicao_formacao_professor: generate(12),
+        tipo_perfil_professor: 1,
+        status_professor: 1,
+        email_professor: generate(12),
+        senha_professor: '123' 
+    };
+    const professor = await professoresService.postProfessores(dado);
+
+    await request(`http://localhost:3000/professores/${professor.insertId}`, 'delete');
+    const professores = await professoresService.getProfessores();
+    expect(professores).toHaveLength(0);
 });
